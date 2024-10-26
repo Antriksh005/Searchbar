@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bar Example</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.search-container {
+    width: 400px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#items-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.item-name {
+    font-size: 18px;
+}
+
+</style>
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search for an item...">
+        <div id="items-container">
+            <!-- Items will be dynamically inserted here -->
+        </div>
+    </div>
+    <script >
+const items = [
+    { name: 'Apple', image: 'https://via.placeholder.com/50?text=Apple' },
+    { name: 'Banana', image: 'https://via.placeholder.com/50?text=Banana' },
+    { name: 'Orange', image: 'https://via.placeholder.com/50?text=Orange' },
+    { name: 'Mango', image: 'https://via.placeholder.com/50?text=Mango' },
+    { name: 'Grapes', image: 'https://via.placeholder.com/50?text=Grapes' },
+    { name: 'Pineapple', image: 'https://via.placeholder.com/50?text=Pineapple' },
+    { name: 'Strawberry', image: 'https://via.placeholder.com/50?text=Strawberry' }
+];
+
+const searchInput = document.getElementById('search-input');
+const itemsContainer = document.getElementById('items-container');
+
+function displayItems(filteredItems) {
+    itemsContainer.innerHTML = '';
+    filteredItems.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.classList.add('item');
+        itemElement.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <div class="item-name">${item.name}</div>
+        `;
+        itemsContainer.appendChild(itemElement);
+    });
+}
+
+// Initial display of all items
+displayItems(items);
+
+searchInput.addEventListener('input', (e) => {
+    const searchText = e.target.value.toLowerCase();
+    const filteredItems = items.filter(item => item.name.toLowerCase().includes(searchText));
+    displayItems(filteredItems);
+});
+
+
+    </script>
+</body>
+</html>
